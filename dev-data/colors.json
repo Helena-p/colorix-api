@@ -1,0 +1,26 @@
+[
+	{
+		"id": 0,
+		"name": "Red",
+		"producer": "Avitel",
+		"price": 200,
+		"size": 500,
+		"description": " ",
+		"category": "interior",
+		"in_stock": true,
+		"finish": ["gloss", "satin", "interior matt"],
+		"image": " "
+	},
+	{
+		"id": 1,
+		"name": "Blue",
+		"producer": "Shüringer",
+		"price": 700,
+		"size": 1000,
+		"description": " ",
+		"category": "outdoor",
+		"in_stock": true,
+		"finish": ["satin"],
+		"image": " "
+	}
+]
