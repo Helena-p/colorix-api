@@ -7,7 +7,7 @@ const productSchema = new mongoose.Schema({
 		unique: true,
 		trim: true,
 		maxlength: [
-			30,
+			50,
 			'A product must have less or equal to 30 characters, got {VALUE}',
 		],
 		minlength: [
@@ -30,10 +30,6 @@ const productSchema = new mongoose.Schema({
 	description: {
 		type: String,
 		trim: true,
-		maxlength: [
-			true,
-			'A description must not contain more than 600 characters',
-		],
 	},
 	category: {
 		type: String,

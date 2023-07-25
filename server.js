@@ -1,19 +1,6 @@
 const mongoose = require('mongoose');
-const Product = require('./models/productModel');
 const dotenv = require('dotenv');
 const app = require('./app');
-
-const testProd = new Product({
-	name: 'Yellow',
-	price: 800,
-});
-
-testProd
-	.save()
-	.then((document) => {
-		console.log(document);
-	})
-	.catch((error) => console.log(error));
 
 dotenv.config({ path: './config.env' });
 
