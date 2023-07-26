@@ -6,8 +6,13 @@ class DataProcessor {
 
 	filter() {
 		const queryObj = { ...this.queryString };
-		// console.log(queryObj);
-		this.query = this.query.find(queryObj);
+		// add '$' to query for range queries
+		const queryStr = JSON.stringify(queryObj);
+		queryStr.queryStr.replace(
+			/\b(gte|gt|lte|lt)\b/g,
+			(match) => `$${match}`
+		);
+		this.query = this.query.find(JSON.parse(queryStr));
 		return this;
 	}
 }
