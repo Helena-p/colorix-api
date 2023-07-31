@@ -5,7 +5,8 @@ exports.getAllProducts = async (req, res) => {
 	try {
 		const processedData = new DataProcessor(Product.find(), req.query)
 			.filter()
-			.sort();
+			.sort()
+			.limitFields();
 		const products = await processedData.query;
 		res.status(200).json({
 			status: 'success',

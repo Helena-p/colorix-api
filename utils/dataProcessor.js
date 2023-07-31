@@ -27,7 +27,16 @@ class DataProcessor {
 		return this;
 	}
 
-	// limit fields
+	limitFields() {
+		if (this.queryString.fields) {
+			const limitedFields = this.queryString.fields.split(',').join(' ');
+			this.query = this.query.select(limitedFields);
+		} else {
+			// by default exclude mongoose __v prop
+			this.query = this.query.select('-__v');
+		}
+		return this;
+	}
 	// pagination
 }
 
