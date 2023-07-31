@@ -3,10 +3,9 @@ const DataProcessor = require('./../utils/dataProcessor');
 
 exports.getAllProducts = async (req, res) => {
 	try {
-		const processedData = new DataProcessor(
-			Product.find(),
-			req.query
-		).filter();
+		const processedData = new DataProcessor(Product.find(), req.query)
+			.filter()
+			.sort();
 		const products = await processedData.query;
 		res.status(200).json({
 			status: 'success',
