@@ -37,7 +37,15 @@ class DataProcessor {
 		}
 		return this;
 	}
-	// pagination
+
+	pagination() {
+		const queryPage = parseInt(this.queryString.page) || 1;
+		const queryLimit = parseInt(this.queryString.limit) || 100;
+		const skip = (queryPage - 1) * queryLimit;
+
+		this.query = this.query.skip(skip).limit(queryLimit);
+		return this;
+	}
 }
 
 module.exports = DataProcessor;
