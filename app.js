@@ -1,6 +1,7 @@
 const express = require('express');
 const productRouter = require('./routes/productRoutes');
 const AppError = require('./utils/appError');
+const globalErrorController = require('./controllers/errorController');
 const app = express();
 
 app.use(express.json());
@@ -11,25 +12,6 @@ app.all('*', (req, _, next) => {
 	next(new AppError(`Cannot find ${req.originalUrl} on this server`, 404));
 });
 
-app.use((err, _, res, next) => {
-	err.statusCode = err.statusCode || 500;
-	err.status = err.status || 'error';
-
-	if (process.env.NODE_ENV === 'development') {
-		res.status(err.statusCode).json({
-			status: err.status,
-			error: err,
-			message: err.message,
-			stack: err.stack,
-		});
-	} else if (process.env.NODE_ENV === 'production') {
-		res.status(err.statusCode).json({
-			status: err.status,
-			message: err.message,
-		});
-	}
-
-	next();
-});
+app.use(globalErrorController);
 
 module.exports = app;
