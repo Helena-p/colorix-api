@@ -8,6 +8,8 @@ This API is a learning project to set up an API for CRUD operation with MongoDB.
 
 ## API Endpoints
 
+### Products
+
 | HTTP verb | Endpoint             | Action                              |
 | --------- | -------------------- | ----------------------------------- |
 | GET       | /api/v1/products     | To retrieve all products            |
@@ -15,6 +17,16 @@ This API is a learning project to set up an API for CRUD operation with MongoDB.
 | GET       | /api/v1/products/:id | To retrieve a product by product-id |
 | PATCH     | /api/v1/products/:id | To update parts of a product        |
 | DELETE    | /api/v1/products/:id | To delete a product                 |
+
+### Users
+
+| HTTP verb | Endpoint          | Action                            |
+| --------- | ----------------- | --------------------------------- |
+| GET       | /api/v1/users     | To retrieve all users             |
+| POST      | /api/v1/users     | To create a user                  |
+| GET       | /api/v1/users/:id | To retrieve a user by id          |
+| PATCH     | /api/v1/users/:id | To update parts of a user details |
+| DELETE    | /api/v1/users/:id | To delete a user                  |
 
 ## Technologies used
 
