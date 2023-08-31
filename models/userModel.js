@@ -30,6 +30,7 @@ const userSchema = new mongoose.Schema({
 		trim: true,
 		required: [true, 'Please provide a password'],
 		minlength: 8,
+		select: false,
 	},
 	passwordRepeat: {
 		type: String,
@@ -53,6 +54,14 @@ userSchema.pre('save', async function (next) {
 	this.passwordRepeat = undefined;
 	next();
 });
+
+userSchema.methods.correctPassword = async function (
+	candidatePassword,
+	userPassword
+) {
+	const isCorrect = await bcrypt.compare(candidatePassword, userPassword);
+	return isCorrect;
+};
 
 const User = mongoose.model('User', userSchema);
 module.exports = User;
