@@ -1,9 +1,9 @@
 const Product = require('./../models/productModel');
 const DataProcessor = require('./../utils/dataProcessor');
-const catchAsyncError = require('./../utils/catchAsyncError');
+const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/appError');
 
-exports.getAllProducts = catchAsyncError(async (req, res, next) => {
+exports.getAllProducts = catchAsync(async (req, res, next) => {
 	const processedData = new DataProcessor(Product.find(), req.query)
 		.filter()
 		.sort()
@@ -19,7 +19,7 @@ exports.getAllProducts = catchAsyncError(async (req, res, next) => {
 	});
 });
 
-exports.createProduct = catchAsyncError(async (req, res, next) => {
+exports.createProduct = catchAsync(async (req, res, next) => {
 	const newProduct = await Product.create(req.body);
 	res.status(201).json({
 		status: 'success',
@@ -29,7 +29,7 @@ exports.createProduct = catchAsyncError(async (req, res, next) => {
 	});
 });
 
-exports.getOneProduct = catchAsyncError(async (req, res, next) => {
+exports.getOneProduct = catchAsync(async (req, res, next) => {
 	const product = await Product.findById(req.params.id);
 
 	if (!product) {
@@ -44,7 +44,7 @@ exports.getOneProduct = catchAsyncError(async (req, res, next) => {
 	});
 });
 
-exports.updateProduct = catchAsyncError(async (req, res, next) => {
+exports.updateProduct = catchAsync(async (req, res, next) => {
 	const product = await Product.findByIdAndUpdate(req.params.id, req.body, {
 		new: true,
 		runValidators: true,
@@ -62,7 +62,7 @@ exports.updateProduct = catchAsyncError(async (req, res, next) => {
 	});
 });
 
-exports.deleteProduct = catchAsyncError(async (req, res, next) => {
+exports.deleteProduct = catchAsync(async (req, res, next) => {
 	const product = await Product.findByIdAndDelete(req.params.id);
 
 	if (!product) {

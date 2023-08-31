@@ -33,7 +33,13 @@ const userSchema = new mongoose.Schema({
 	passwordRepeat: {
 		type: String,
 		trim: true,
-		required: [true, 'Passwords do not match'],
+		required: [true, 'User password do not match'],
+		validate: {
+			message: 'Passwords do not match',
+			validator: function (pw) {
+				return pw === this.password;
+			},
+		},
 	},
 });
 
