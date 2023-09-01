@@ -5,7 +5,7 @@ const {
 	updateUser,
 	deleteUser,
 } = require('../controllers/userController');
-const { signUp, login } = require('./../controllers/authController');
+const { signUp, login, protect } = require('./../controllers/authController');
 
 const express = require('express');
 const router = express.Router();
