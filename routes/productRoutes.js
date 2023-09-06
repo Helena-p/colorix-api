@@ -5,19 +5,19 @@ const {
 	updateProduct,
 	deleteProduct,
 } = require('../controllers/productController');
-const authController = require('./../controllers/authController');
+const { protect, restrictTo } = require('./../controllers/authController');
 const express = require('express');
 
 const router = express.Router();
 
 router
 	.route('/')
-	.get(authController.protect, getAllProducts)
-	.post(createProduct);
+	.get(getAllProducts)
+	.post(protect, restrictTo('admin'), createProduct);
 router
 	.route('/:id')
 	.get(getOneProduct)
-	.patch(updateProduct)
-	.delete(deleteProduct);
+	.patch(protect, restrictTo('admin'), updateProduct)
+	.delete(protect, restrictTo('admin'), deleteProduct);
 
 module.exports = router;

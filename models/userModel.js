@@ -25,6 +25,11 @@ const userSchema = new mongoose.Schema({
 		unique: [true, 'A user already exist with this email'],
 		validate: [validator.isEmail, 'Please provide a valid email'],
 	},
+	role: {
+		type: String,
+		enum: ['user', 'admin'],
+		default: 'user',
+	},
 	password: {
 		type: String,
 		trim: true,
@@ -64,7 +69,7 @@ userSchema.methods.correctPassword = async function (
 	return isCorrect;
 };
 
-userSchema.methods.changedPasswordAfter = async function (jwtTimestamp) {
+userSchema.methods.changedPasswordAfter = function (jwtTimestamp) {
 	if (this.passwordChangedAt) {
 		const changedTimestamp = this.passwordChangedAt.getTime() / 1000;
 		return jwtTimestamp < changedTimestamp;

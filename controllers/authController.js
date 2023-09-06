@@ -14,6 +14,7 @@ const signToken = (id) => {
 exports.signUp = catchAsync(async (req, res, next) => {
 	const newUser = await User.create({
 		name: req.body.name,
+		role: req.body.role,
 		email: req.body.email,
 		password: req.body.password,
 		passwordRepeat: req.body.passwordRepeat,
@@ -54,7 +55,7 @@ exports.login = catchAsync(async (req, res, next) => {
 	next();
 });
 
-exports.protect = catchAsync(async (req, _, next) => {
+exports.protect = catchAsync(async (req, res, next) => {
 	// verify user is logged in by checking for token in req header
 	let token;
 	if (
@@ -88,6 +89,22 @@ exports.protect = catchAsync(async (req, _, next) => {
 			)
 		);
 	}
+	// store current user with its user role in the request body
 	req.user = currentUser;
 	next();
 });
+
+// use a wrapper fn to be able to send params to middleware
+exports.restrictTo = (...roles) => {
+	return (req, _, next) => {
+		if (!roles.includes(req.user.role)) {
+			return next(
+				new AppError(
+					'You have no permission to perform this action',
+					403
+				)
+			);
+		}
+		next();
+	};
+};
